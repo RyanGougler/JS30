@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>League of Legends Soundboard</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+
+  <div class="keys">
+    <div data-key="65" class="key">
+      <char><img src="http://ddragon.leagueoflegends.com/cdn/img/champion/splash/Ezreal_0.jpg" /></char>
+      <span class="letter">A</span>
+    </div>
+    <div data-key="83" class="key">
+      <char><img src="http://ddragon.leagueoflegends.com/cdn/img/champion/splash/Ezreal_1.jpg" /></char>
+      <span class="letter">S</span>
+    </div>
+    <div data-key="68" class="key">
+      <char><img src="http://www.lolnews.com/wp-content/uploads/2015/10/Blitzcrank_0-2.jpg" /></char>
+      <span class="letter">D</span>
+    </div>
+    <div data-key="70" class="key">
+      <char><img src="http://ddragon.leagueoflegends.com/cdn/img/champion/splash/Braum_0.jpg" /></char>
+      <span class="letter">F</span>
+    </div>
+    <div data-key="71" class="key">
+      <char><img src="http://ddragon.leagueoflegends.com/cdn/img/champion/splash/Jinx_0.jpg" /></char>
+      <span class="letter">G</span>
+    </div>
+    <div data-key="72" class="key">
+      <char><img src="http://ddragon.leagueoflegends.com/cdn/img/champion/splash/Annie_0.jpg" /></char>
+      <span class="letter">H</span>
+    </div>
+  </div>
+
+  <audio data-key="65" src="leagueSounds/whoNeedsAMap.ogg"></audio>
+  <audio data-key="83" src="leagueSounds/youBelongInAMuseum.ogg"></audio>
+  <audio data-key="68" src="leagueSounds/blitzLaugh.ogg"></audio>
+  <audio data-key="70" src="leagueSounds/braumIsHere.ogg"></audio>
+  <audio data-key="71" src="leagueSounds/zap.ogg"></audio>
+  <audio data-key="72" src="leagueSounds/tibbers.ogg"></audio>
+
+<script>
+    function playVoice(e){
+        const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+        if(!audio) return;
+        audio.currentTime = 0;
+        audio.play();
+
+        const key = document.querySelector(`.key[data-key="${e.keyCode}"]`);
+        key.classList.add('playing');
+    }
+
+    function removeTransition(e){
+        if(e.propertyName !== 'transform') return;
+        this.classList.remove('playing');
+    }
+
+    const keys = document.querySelectorAll('.key');
+    keys.forEach(key => key.addEventListener('transitionend', removeTransition));
+    window.addEventListener("keydown", playVoice);
+</script>
+</body>
+</html>
